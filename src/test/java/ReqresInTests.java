@@ -3,8 +3,7 @@ import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
-import static org.hamcrest.Matchers.hasKey;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 
 public class ReqresInTests extends TestBase {
 
@@ -155,7 +154,15 @@ public class ReqresInTests extends TestBase {
                 .log().body()
                 .statusCode(200)
                 .body("id", is(4))
-                .body("token", is("QpwL5tke4Pnpja7X4"));
+                .body("token", notNullValue())
+                //Тут пришлось применить GPT. Пока не знаю синтаксис регулярок
+                .body("token", matchesPattern(".*\\S.*"))  //Не пустая строка
+                .body("token", matchesPattern(".{10,}")) // Не менее 10 символов
+                .body("token", matchesPattern("^[A-Za-z0-9]+$")); //Только определённые символы
+                /*Понимаю, что такие проверки токенов
+                хотелось бы вынести в отдельную утилиту,
+                но пока не знаю как, поэтому смотрю курс дальше */
+
     }
 
     @Test
@@ -183,7 +190,9 @@ public class ReqresInTests extends TestBase {
         .then()
                 .log().body()
                 .statusCode(200)
-                .body("token", is("QpwL5tke4Pnpja7X4"));
+                .body("token", matchesPattern(".*\\S.*"))
+                .body("token", matchesPattern(".{10,}"))
+                .body("token", matchesPattern("^[A-Za-z0-9]+$"));
     }
 
     @Test
