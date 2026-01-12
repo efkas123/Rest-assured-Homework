@@ -1,16 +1,16 @@
 package tests;
 
+import io.restassured.response.Response;
 import models.ListUsers;
 import models.PostCreate;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import specs.PostCreateSpec;
-
 
 import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static specs.DeleteUserSpec.deleteUserRequestSpec;
+import static specs.DeleteUserSpec.deleteUserResponseSpec;
 import static specs.ListUsersSpec.listUsersRequestSpec;
 import static specs.ListUsersSpec.listUsersResponseSpec;
 import static specs.PostCreateSpec.postCreateRequestSpec;
@@ -52,14 +52,23 @@ public class AdvancedReqresinTests extends TestBase {
     @Test
     @Tag("advanced")
     void deleteUserTest() {
-        given()
-                .header("x-api-key", MyApiKey)
+
+        Response response;
+
+        response = step("Make request", ()->
+        given(deleteUserRequestSpec)
                 .when()
                 .delete("/users/2")
                 .then()
-                .log().body()
-                .statusCode(204);
+                .spec(deleteUserResponseSpec))
+                .extract()
+                .response();
+
+        step("Check response body is empty", ()->
+                        assertEquals("", response.getBody().asString())
+                );
     }
+
 
 
 }
