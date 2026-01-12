@@ -10,7 +10,7 @@ private String powered_by;
 private String upgrade_url;
 private String example_url;
 private String variant;
-private List<Cta> cta;
+private Cta cta;
 private String context;
 private String docs_url;
 private String template_gallery;

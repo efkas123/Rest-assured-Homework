@@ -8,27 +8,26 @@ import static helpers.CustomListener.withCustomTemplates;
 import static io.restassured.RestAssured.with;
 import static io.restassured.filter.log.LogDetail.BODY;
 import static io.restassured.filter.log.LogDetail.STATUS;
-import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.is;
 import static tests.TestBase.MyApiKey;
+import static tests.TestBase.postCreateJSON;
 
-public class ListUsersSpec {
-    public static RequestSpecification listUsersRequestSpec = with()
+public class PostCreateSpec {
+    public static RequestSpecification postCreateRequestSpec = with()
             .filter(withCustomTemplates())
             .log().uri()
             .log().body()
-            .log().headers()
-            .queryParam("page", "2")
-            .header("x-api-key", MyApiKey);
+            .header("x-api-key", MyApiKey)
+            .body(postCreateJSON)
+            .contentType("application/json");
 
+    public static ResponseSpecification postCreateResponseSpec = new ResponseSpecBuilder()
+            .expectStatusCode(201)
+            .log(STATUS)
+            .log(BODY)
+            .expectBody("name", is("morpheus"))
+            .expectBody("job", is("leader"))
+            .build();
 
-public static ResponseSpecification listUsersResponseSpec = new ResponseSpecBuilder()
-        .expectStatusCode(200)
-        .log(STATUS)
-        .log(BODY)
-        .expectBody("page", is(2))
-        .expectBody("data[0].email", is("michael.lawson@reqres.in"))
-        .expectBody("support", hasKey("url"))
-        .build();
 
 }

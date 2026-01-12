@@ -8,41 +8,41 @@ public class TestBase {
 
     public static final String MyApiKey = "reqres_d16cdb15190f4682a7f12e8ec16de76e";
 
-    public String postCreateJSON = """
+    public static String postCreateJSON = """
             {
                 "name": "morpheus",
                 "job": "leader"
             }
             """;
 
-    public String putUpdateJSON = """
+    public static String putUpdateJSON = """
             {
                 "name": "morpheus",
                 "job": "zion resident"
             }
             """;
 
-    public String registrationSuccessfulJson = """
+    public static String registrationSuccessfulJson = """
             {
                 "email": "eve.holt@reqres.in",
                 "password": "pistol"
             }
             """;
 
-    public String registrationUnsuccessfulJson = """
+    public static String registrationUnsuccessfulJson = """
             {
                 "email": "sydney@fife"
             }
             """;
 
-    public String loginSuccessfulJson = """
+    public static String loginSuccessfulJson = """
             {
                 "email": "eve.holt@reqres.in",
                 "password": "cityslicka"
             }
             """;
 
-    public String loginUnsuccessfulJson = """
+    public static String loginUnsuccessfulJson = """
             {
                 "email": "peter@klaven"
             }
