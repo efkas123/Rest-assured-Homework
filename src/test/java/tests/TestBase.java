@@ -1,10 +1,12 @@
+package tests;
+
 import org.junit.jupiter.api.BeforeAll;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.basePath;
 
 public class TestBase {
 
-    public String MyApiKey = "reqres_d16cdb15190f4682a7f12e8ec16de76e";
+    public static final String MyApiKey = "reqres_d16cdb15190f4682a7f12e8ec16de76e";
 
     public String postCreateJSON = """
             {

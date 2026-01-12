@@ -1,14 +1,29 @@
 plugins {
     id 'java-library'
     id 'io.freefair.lombok' version '9.1.0'
+    id 'io.qameta.allure' version '2.11.2'
 }
 
 repositories {
     mavenCentral()
 }
 
-def restAssuredVersion = "5.3.1",
-    allureVersion = "2.21.0"
+def restAssuredVersion = "5.3.1"
+def allureVersion = "2.21.0"
+
+allure {
+    report {
+        version.set(allureVersion)
+    }
+    adapter {
+        aspectjWeaver.set(true)
+        frameworks {
+            junit5 {
+                adapterVersion.set(allureVersion)
+            }
+        }
+    }
+}
 
 dependencies {
     testImplementation(
@@ -31,5 +46,11 @@ tasks.withType(Test) {
             events "started", "skipped", "failed", "standard_error", "standard_out"
             exceptionFormat "short"
         }
+    }
+}
+
+task advanced_test(type:Test) {
+    useJUnitPlatform{
+        includeTags("advanced")
     }
 }
