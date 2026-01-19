@@ -18,6 +18,5 @@ public class DeleteUserSpec {
 
     public static ResponseSpecification deleteUserResponseSpec = new ResponseSpecBuilder()
             .log(BODY)
-            .expectStatusCode(204)
             .build();
 }

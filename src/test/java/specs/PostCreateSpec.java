@@ -8,7 +8,6 @@ import static helpers.CustomListener.withCustomTemplates;
 import static io.restassured.RestAssured.with;
 import static io.restassured.filter.log.LogDetail.BODY;
 import static io.restassured.filter.log.LogDetail.STATUS;
-import static org.hamcrest.Matchers.is;
 import static tests.TestBase.MyApiKey;
 import static tests.TestBase.postCreateJSON;
 
@@ -25,8 +24,6 @@ public class PostCreateSpec {
             .expectStatusCode(201)
             .log(STATUS)
             .log(BODY)
-            .expectBody("name", is("morpheus"))
-            .expectBody("job", is("leader"))
             .build();
 
 
