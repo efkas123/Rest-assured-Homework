@@ -21,31 +21,31 @@ public class AdvancedReqresinTests extends TestBase {
     @Tag("advanced")
     void getListUsersTest() {
         ListUsers listUsers = new ListUsers();
-        ListUsers response = step("Make request", ()->
+        ListUsers response = step("Make request", () ->
                 given(listUsersRequestSpec)
-                .when()
-                .get("/users")
-                .then()
+                        .when()
+                        .get("/users")
+                        .then()
                         .spec(listUsersResponseSpec)
-                .extract().as(ListUsers.class));
+                        .extract().as(ListUsers.class));
 
-        step("Check response", ()->
-            assertEquals(response.getPage(), 2));
+        step("Check response", () ->
+                assertEquals(response.getPage(), 2));
     }
 
     @Test
     @Tag("advanced")
     void postCreateTest() {
         PostCreate postCreate = new PostCreate();
-        PostCreate response = step("Make request", ()->
-        given(postCreateRequestSpec)
-                .when()
-                .post("/users")
-                .then()
-                .spec(postCreateResponseSpec)
-                .extract().as(PostCreate.class));
+        PostCreate response = step("Make request", () ->
+                given(postCreateRequestSpec)
+                        .when()
+                        .post("/users")
+                        .then()
+                        .spec(postCreateResponseSpec)
+                        .extract().as(PostCreate.class));
 
-        step("Check response", ()->
+        step("Check response", () ->
                 assertEquals(response.getJob(), "leader"));
     }
 
@@ -55,20 +55,19 @@ public class AdvancedReqresinTests extends TestBase {
 
         Response response;
 
-        response = step("Make request", ()->
-        given(deleteUserRequestSpec)
-                .when()
-                .delete("/users/2")
-                .then()
-                .spec(deleteUserResponseSpec))
+        response = step("Make request", () ->
+                given(deleteUserRequestSpec)
+                        .when()
+                        .delete("/users/2")
+                        .then()
+                        .spec(deleteUserResponseSpec))
                 .extract()
                 .response();
 
-        step("Check response body is empty", ()->
-                        assertEquals("", response.getBody().asString())
-                );
+        step("Check response body is empty", () ->
+                assertEquals("", response.getBody().asString())
+        );
     }
-
 
 
 }
